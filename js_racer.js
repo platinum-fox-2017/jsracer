@@ -7,19 +7,19 @@ class JSRacer {
     this.players = this.create_pemain(players);
     this.length = length;
     this.winner;
+    this.obstacle = this.create_obstacle();
+    this.booster = this.create_booster();
   }
   create_pemain(jumlahPemain) {
     let arr_pemain = [];
     let abjad = ['a', 'b', 'c', 'd', 'e'];
     for (let c = 0; c < jumlahPemain; c++) {
-      var obj = {
+      let obj = {
         pemain: abjad[c],
         pos: 0
       }
       arr_pemain.push(obj)
     }
-    // console.log(obj.pemain)//nama pemain
-    // console.log(obj.pos)//posisi pemain
     return arr_pemain
   }
   print_board() {
@@ -34,6 +34,10 @@ class JSRacer {
     for (let b = 0; b < this.length; b++) {
       if (b === pos) {
         isiArr.push(player)
+      } else if (b === this.obstacle) {
+        isiArr.push('#')
+      } else if (b === this.booster) {
+        isiArr.push('*')
       } else {
         isiArr.push(' ')
       }
@@ -55,8 +59,25 @@ class JSRacer {
         this.winner = this.players[a].pemain
         break;
       }
+      this.reset_board()
+      console.log(this.print_board())
     }
-    console.log(this.print_board())
+  }
+  create_obstacle() {
+    let obstacle = Math.ceil(Math.random() * 10)
+    if (obstacle > 3) {
+      return this.create_obstacle();
+    } else {
+      return obstacle;
+    }
+  }
+  create_booster() {
+    let booster = Math.ceil(Math.random() * 10)
+    if (booster < 6) {
+      return this.create_booster();
+    } else {
+      return booster;
+    }
   }
   finished() {
 
