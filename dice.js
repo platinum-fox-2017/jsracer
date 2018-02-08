@@ -5,7 +5,11 @@ class Dice {
     this.dice = 6
   }
   roll() {
-      return random = Math.round(Math.random() * this.dice)
+    let random = 0
+    while (random === 0) {
+      random = Math.round(Math.random() * this.dice)
+    }
+    return random
   }
 }
 

@@ -18,3 +18,16 @@ let length = process.argv[3]
 
 let start = new JSRacer(player, length)
 console.log(start.print_board())
+while (true) {
+
+  if (start.winner !== undefined) {
+    console.log('winners: ' + start.winners())
+    break;
+  }
+  for (let a = 0; a < 20; a++) {
+    console.log("")
+  }
+
+  start.advanced_player();
+  sleep(1000)
+}

@@ -34,25 +34,39 @@ class JSRacer {
     for (let b = 0; b < this.length; b++) {
       if (b === pos) {
         isiArr.push(player)
-      }else {
+      } else {
         isiArr.push(' ')
       }
     }
     return isiArr.join(' |')
   }
   advanced_player(player) {
-
+    let rollDice = new Dice();
+    for (let a = 0; a < this.players.length; a++) {
+      this.players[a].pos += rollDice.roll();
+      if (this.players[a].pos === this.obstacle) {
+        this.players[a].pos -= 1
+      }
+      if (this.players[a].pos === this.booster) {
+        this.players[a].pos += 2
+      }
+      if (this.players[a].pos >= this.length - 1) {
+        this.players[a].pos = this.length - 1
+        this.winner = this.players[a].pemain
+        break;
+      }
+    }
+    console.log(this.print_board())
   }
   finished() {
 
   }
-  winner() {
-
+  winners() {
+    return this.winner
   }
   reset_board() {
     console.log("\x1B[2J")
   }
 }
-
 
 module.exports = JSRacer;
