@@ -11,4 +11,6 @@ function sleep(milliseconds) {
   }
 }
 
-// Your code here...
+var racer=new JSRacer();
+
+racer.print_board();
