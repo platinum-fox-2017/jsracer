@@ -5,6 +5,7 @@ const Dice = require('./dice');
 class JSRacer {
   constructor(players, length) {
     let listPlayer = 'ABCDEFGHI'
+    this.count = 0
     this.players = []
     this.distance = length
     this.board = []
@@ -18,16 +19,20 @@ class JSRacer {
     }
   }
   print_board() {
-    this.board = []
     for(let i = 0 ; i < this.players.length ; i++){
-      this.advanced_player(this.players[i])
-      this.finished(this.players[i].name,this.players[i].position)
-      this.board.push(this.print_line(this.players[i]))
+      console.log(this.print_line(this.players[i]))
     }
-    console.log(`=-=-`.repeat(this.distance))
-    console.log(this.board.join('\n'))
-    console.log(`=-=-`.repeat(this.distance))
-    console.log('')
+    if(this.count === 0 ){
+      this.advanced_player(this.players[this.count])
+      this.count++
+    }else if (this.count == 1){
+      this.advanced_player(this.players[this.count])
+      this.count++
+    }else{
+      this.advanced_player(this.players[this.count])
+      this.count = 0
+    }
+      this.finished(this.players[this.count].name,this.players[this.count].position)
     if(this.win){
       this.winner()
     }
@@ -66,7 +71,7 @@ class JSRacer {
 
   }
   reset_board() {
-    // console.log("\x1B[2J")
+    console.log("\x1B[2J")
   }
 }
 
