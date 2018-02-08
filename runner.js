@@ -18,7 +18,8 @@ let startGame = new JSRacer(player,lintasan)
 
 while(!startGame.finished()){
   startGame.reset_board()
+  console.log('Race is on!!')
   startGame.advanced_player()
   console.log(startGame.print_board())
-  sleep(500)
+  sleep(1000)
 }
