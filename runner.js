@@ -29,7 +29,14 @@ if(argv[0] == 'help' || argv.length > 4){
 } else if(argv[1] < 15){
   console.log(`panjang lintasan minimal 15`);
 } else if(argv[0] >= 2 && argv[1] >= 15){
-  let jsRace = new JSRacer(argv[0],argv[1], argv[2])
+  let jsRace = new JSRacer(argv[0],argv[1])
+  console.log('==== GAME START ====');
+  while(!jsRace.isFinished){
+    jsRace.print_board()
+    sleep(1000)
+    jsRace.reset_board()
+  }
+  jsRace.print_board()
 } else {
   console.log(tutorial);
 }
