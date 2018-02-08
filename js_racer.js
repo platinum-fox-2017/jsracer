@@ -76,16 +76,3 @@ class JSRacer {
 
 
 module.exports = JSRacer;
-
-
-  // print_board(players) {
-  //   for(let i=0; i<this.numberOfPlayers; i++){
-  //     if(this.players[i].position >= this.length-1){
-  //       this.print_line(this.players[i].playerName, this.players[i].position);
-  //       this.finish = true;
-  //     }else{
-  //       this.print_line(this.players[i].playerName, this.players[i].position);
-  //       this.move_point(this.players[i]);
-  //     }
-  //   }
-  // }
