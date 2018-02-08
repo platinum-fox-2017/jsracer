@@ -5,7 +5,8 @@ class Dice {
 
   }
   roll() {
-
+    let random = Math.ceil(Math.random()*2);
+    return random;
   }
 }
 
