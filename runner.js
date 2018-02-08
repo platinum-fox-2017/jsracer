@@ -9,6 +9,8 @@ function sleep(milliseconds) {
       break;
     }
   }
+  return JSRacer;
 }
 
+console.log(sleep(10));
 // Your code here...
