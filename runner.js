@@ -12,3 +12,13 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+let player = process.argv[2]
+let lintasan = process.argv[3]
+let startGame = new JSRacer(player,lintasan)
+
+while(!startGame.finished()){
+  startGame.reset_board()
+  startGame.advanced_player()
+  console.log(startGame.print_board())
+  sleep(500)
+}
