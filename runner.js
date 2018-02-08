@@ -16,3 +16,4 @@ let totalPlayer = process.argv[2]
 let lengthArena = process.argv[3]
 // console.log(totalPlayer)
 let jsracer = new JSRacer(totalPlayer, lengthArena)
+console.log(jsracer.print_board())
