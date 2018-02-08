@@ -44,10 +44,13 @@ class JSRacer {
   }
 
   advanced_player(player) {
-    if (player.position >= this.length) {
+    if (player.position > this.length) {
       player.position = this.length
     } else {
       player.position += this.dice.roll()
+      if (player.position > this.length) {
+        player.position = this.length
+      }
     }
     // this.finished()
     // return player
