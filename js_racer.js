@@ -15,7 +15,10 @@ class JSRacer {
     this.dice = new Dice();
     this.gameEnd = false;
     this.diceResult = 0;
+    this.initiation();
+  }
 
+  initiation(){
     for (let i = 0; i < this.players; i++) {
       let tempArray = new Array();
       let tempObject = new Object();

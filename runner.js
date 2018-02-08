@@ -30,10 +30,12 @@ while (!jsRacer.gameEnd) {
     jsRacer.reset_board();
     jsRacer.run_player(i);
     jsRacer.print_board(i);
+
     if (jsRacer.gameEnd) {
       jsRacer.winner(i);
       return 0;
     }
-    sleep(500);
+
+    sleep(300);
   }
 }
