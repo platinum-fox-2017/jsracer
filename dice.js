@@ -2,10 +2,10 @@
 
 class Dice {
   constructor() {
-
+   
   }
   roll() {
-
+    return Math.ceil(Math.random()*6)
   }
 }
 

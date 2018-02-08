@@ -11,4 +11,13 @@ function sleep(milliseconds) {
   }
 }
 
-// Your code here...
+const argv = process.argv;
+
+var race = new JSRacer(argv[2], argv[3])
+race.print_board()
+console.log("\n")
+while(!race.isWinner) {
+  race.advanced_player()
+  sleep(1000)
+}
+console.log("\n")
