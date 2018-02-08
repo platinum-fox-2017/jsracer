@@ -18,7 +18,11 @@ while(racing.finished() == false){
   racing.print_board();
   sleep(200);
   if(racing.finished()){
+    racing.reset_board();
+    racing.checkBeforePrintFinish();
+    racing.print_board();
     console.log(racing.winner());  
+    racing.racerTrapped();
     break;
   }
   racing.reset_board();

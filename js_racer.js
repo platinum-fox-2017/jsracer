@@ -7,32 +7,65 @@ class JSRacer {
     this.players = players;
     this.length = length;
     this.racers = this.createPlayer();
+    this.traps = this.generateTraps();
 
+  }
+  generateTraps(){
+     return this.roll();
   }
   print_board() {
     var playersArray = this.racers; 
-    for(var i = 0; i < playersArray.length; i++){
-     this.print_line(playersArray[i].name,playersArray[i].position);   
-     if(!this.finished()){
+      for(var i = 0; i < playersArray.length; i++){
+       this.print_line(playersArray[i].name,playersArray[i].position,i);   
        this.advanced_player(i);
-     }
-    }
+      }
+      
   }
   roll() {
     let  possible = "123456";
     let  text = possible.charAt(Math.floor(Math.random() * possible.length));
     return Number(text);
   }
-  print_line(player, pos) {
+  checkBeforePrintFinish(){
+    var isMoreThenLength = false;
+    var sameAsLength = 0;
+    var playersArray = this.racers; 
+    for(var i = 0; i < playersArray.length; i++){
+      if(playersArray[i].position > this.length){
+        isMoreThenLength = true;  
+      }
+      if(playersArray[i].position === this.length){
+        sameAsLength++;  
+      }
+    }
+    if(isMoreThenLength){
+      for(var i = 0; i < playersArray.length; i++){
+        if(playersArray[i].position <= this.length){
+          playersArray[i].position -= 2;  
+        }
+      }
+    }
+    
+  }
+  print_line(player, pos,chosen) {
     var track = [];
     var isPlayerTampil = false;
     for(var i = 0; i < this.length; i++){
-      if((pos === i && pos < this.length) ){
+      if(pos === this.traps && this.racers[chosen].trapped === false){
+        track[i - 1] = '|*';
+        track.push(player);  
+        this.racers[chosen].trapped = true;
+        isPlayerTampil = true;
+      } else if((pos === i && pos < this.length) ){
         track[i - 1] = '|';
         track.push(player);  
         isPlayerTampil = true;
+      } else if(i === this.traps){
+        track[i - 1] = '|'
+        track.push('*');  
       } else {
         track.push('| ');  
+        
       }
     }
       if(isPlayerTampil === false ){
@@ -45,7 +78,11 @@ class JSRacer {
   }
   advanced_player(player) {
     var newPosition = this.roll();
-     this.racers[player].position += newPosition;
+    if(!this.finished()){
+      if(this.racers[player].position < this.length && this.racers[player].trapped === false) {
+       this.racers[player].position += newPosition;
+      }
+    }
   }
   finished() {
       var players = this.racers;
@@ -55,7 +92,6 @@ class JSRacer {
         }
       }
       return false;
-
   }
   winner() {
     var players = this.racers;
@@ -65,6 +101,15 @@ class JSRacer {
         }
       }
   }
+  racerTrapped(){
+    var players = this.racers;
+      for(var i = 0; i < players.length; i++){
+        if(players[i].trapped === true){
+          console.log(`Player '${players[i].name}' is trapped`);  
+        }
+      }
+    
+  }
   reset_board() {
     console.log("\x1B[2J")
   }
@@ -73,7 +118,7 @@ class JSRacer {
     for(var i = 0; i < this.players; i++){
          var  playerName = this.playerName();
          playerName = this.checkDuplicateName(playerName,playersArray);
-         playersArray.push({ name: playerName, position: 0})
+         playersArray.push({ name: playerName, position: 0, trapped: false})
     }
     return playersArray;
   }
