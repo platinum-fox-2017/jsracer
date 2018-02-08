@@ -11,4 +11,23 @@ function sleep(milliseconds) {
   }
 }
 
-// Your code here...
+var myArgv = process.argv;
+
+if (myArgv[2] < 2 || myArgv[3] < 15) {
+  console.log("Jumlah player harus lebih dari 2 DAN panjang lintasan harus lebih dari 15 !!");
+} else {
+  var theGame = new JSRacer(myArgv[2], myArgv[3]);  
+  theGame.generateGame();
+
+  var listPlayer = theGame.getPlayer();
+
+  var finish = theGame.finished();
+
+  while(finish == false) {
+    sleep();
+    theGame.reset_board();
+    finish = theGame.finished();
+    theGame.print_board();
+  } 
+
+}
