@@ -5,7 +5,7 @@ class Dice {
     this.digits=digit || 6
   }
   roll() {
-    return 1+Math.floor(Math.random()*this.digits)
+    return Math.floor(1+Math.random()*this.digits)
   }
 }
 
