@@ -4,20 +4,22 @@ const Dice = require('./dice');
 
 class JSRacer {
   constructor(players = 2, length = 15) {
-    this.players = players < 2 ? this.createPlayers(2) : this.createPlayers(players)
+    this.players = players < 2 ? this.createPlayers(2, length) : this.createPlayers(players, length)
     this.length = length || 15
     // random number from 1 to 6
     this.dice = new Dice()
   }
 
-  createPlayers(player) {
+  createPlayers(player, length) {
     const total = player < 2 ? 2 : player
     let arrPlayer = []
     let charName = 'abcdefghijklmnopqrtuvwxyz'
     for (let i = 0; i < total; i++) {
       arrPlayer[i] = {
         name: charName.charAt(i),
-        position: 0
+        position: 0,
+        obstacle: Math.floor((Math.random() * length) + 1),
+        turboMode: Math.floor((Math.random() * length) + 1)
       }
     }
     return arrPlayer
@@ -28,14 +30,21 @@ class JSRacer {
       console.log(this.print_line(this.players[i]))
       this.advanced_player(this.players[i])
     }
+    console.log(this.players)
     return ''
   }
 
   print_line(player) {
     let track = ''
     for (let i = 0; i <= this.length; i++) {
-      if (player.position === i) {
+      if (player.position === i && player.position !== player.obstacle && player.position !== player.turboMode) {
         track += `${player.name}|`
+      } else if (player.position === i && player.position === player.obstacle) {
+        track += 'x|'
+        player.position = 0
+      } else if (player.position === i && player.position === player.turboMode) {
+        track += 'O|'
+        player.position += 1
       } else {
         track += ' |'
       }
