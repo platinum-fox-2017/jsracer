@@ -12,3 +12,9 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+
+let player = process.argv[2]
+let length = process.argv[3]
+
+let start = new JSRacer(player, length)
+console.log(start.print_board())
