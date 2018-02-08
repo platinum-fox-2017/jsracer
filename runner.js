@@ -2,13 +2,16 @@
 
 const JSRacer = require('./js_racer')
 
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds) {
-      break;
-    }
-  }
+
+let argv = process.argv
+
+let command = argv.slice(2,argv.length)
+
+let release = new JSRacer(Number(command[0]),Number(command[1]))
+release.createBoard()
+
+while(!release.isFinished){
+  release.printBoard()
 }
 
-// Your code here...
+release.findWinner()
