@@ -11,12 +11,14 @@ function sleep(milliseconds) {
   }
 }
 
-function getPlayer(number) {
+function getPlayer(number, length) {
 	var result = [];
 	for (var i = 0; i < number; i++) {
 		var obj = {
 			name: String.fromCharCode(97 + i),
-			position: 0
+			position: 0,
+			powerUp: Math.floor(Math.random() * (length - 2)) + 1,
+			obstacle: Math.floor(Math.random() * (length - 2)) + 1
 		};
 		result.push(obj);
 	}
@@ -29,7 +31,7 @@ var input_argv = process.argv;
 if (input_argv[2] < 2) console.log('Jumlah minimal pemain adalah 2!');
 else if (input_argv[3] < 15) console.log('Panjang lintasan paling sedikit adalah 15!');
 else {
-	var players = getPlayer(input_argv[2]);
+	var players = getPlayer(input_argv[2], input_argv[3]);
 	var jsRacer = new JSRacer(players, input_argv[3]);
 
 	while(!jsRacer.finished()) {
@@ -44,3 +46,5 @@ else {
 
 	jsRacer.winner();
 }
+
+// console.log(players);
