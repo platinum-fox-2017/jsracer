@@ -11,4 +11,22 @@ function sleep(milliseconds) {
   }
 }
 
+let player = process.argv[2]
+let length = process.argv[3]
+
 // Your code here...
+let newRace = new JSRacer(player, length)
+
+if (player < 2 || length < 10) {
+    console.log('JANGAN BALAPAN SENDIRIAN/JALUR PENDEK, MEMBAHAYAKAN ORANG LAIN')
+} else {
+    while (!newRace.finished()) {
+        newRace.reset_board();
+        newRace.advanced_player();
+        newRace.booster_generator();
+        newRace.obstacle_generator();
+        console.log(newRace.print_board());
+        sleep(800);
+    }
+    newRace.winner()
+}
