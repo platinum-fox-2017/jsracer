@@ -2,7 +2,7 @@
 
 class Dice {
   constructor() {
-
+    //this.side : side
   }
   roll() {
 
