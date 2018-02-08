@@ -2,10 +2,11 @@
 
 class Dice {
   constructor() {
-    //this.side : side
+    
   }
   roll() {
-
+    let diceNum = Math.floor((Math.random() * 6) + 1);
+    return diceNum
   }
 }
 
