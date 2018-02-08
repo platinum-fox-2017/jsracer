@@ -1,7 +1,6 @@
 "use strict"
 
 const Dice = require('./dice');
-var dice=new Dice()
 class JSRacer {
   constructor(players, length, dice) {
     this.runner= this.playersToken(players) || this.playersToken(3)
@@ -52,18 +51,16 @@ class JSRacer {
   }
 
   advanced_player(playerIndex) {
+    let dice=new Dice();
     this.position[playerIndex]+=dice.roll()
     if(this.position[playerIndex]>this.length-1) {
       this.position[playerIndex]=Number(this.length-1);
     }
     if(this.position[playerIndex]===this.bomb[playerIndex]) {
       this.position[playerIndex]-=2;
+      if(this.position[playerIndex]<0)this.position[playerIndex]=0;
       this.bomb.splice(playerIndex,1,'')
     }
-  }
-
-  roll() {
-    return dice.roll()
   }
 
   winner(playerIndex) {
