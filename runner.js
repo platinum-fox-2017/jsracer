@@ -14,7 +14,6 @@ function sleep(milliseconds) {
 // Your code here...
 var inputARGV = process.argv
 var jsRunner = new JSRacer(inputARGV[2], inputARGV[3]);
-
 while (jsRunner.finished()) {
   sleep(800);
   jsRunner.reset_board()

@@ -6,8 +6,9 @@ class JSRacer {
   constructor(players, length) {
     this.player = players
     this.trackLength = length
-    this.players = this.generatePlayers();
-    this.playersPos = this.playerPosLoop();
+    this.players = this.generatePlayers()
+    this.playersPos = this.playerPosLoop()
+    this.trapsIndex = this.rngTraps()
   }
 
   generatePlayers() {
@@ -18,10 +19,17 @@ class JSRacer {
     return numPlayers;
   }
 
-  print_line(player, pos) {
+  print_line(player, pos, current_player) {
     let array = [];
     for (let i = 0; i <= this.trackLength; i++) {
-      array.push('_');
+      // console.log(this.trapsIndex[current_player]);
+      if (this.trapsIndex[current_player] === i) {
+        // console.log(this.trapsIndex);
+        this.print_obstacle(array);
+      } else {
+        array.push('_');
+      }
+
     }
     if (pos >= this.trackLength) {
       array.splice((this.trackLength), 1, player);
@@ -30,6 +38,19 @@ class JSRacer {
       array.splice(pos, 1, player);
       return (array.join('|'));
     }
+  }
+
+  rngTraps(){
+    let traps = [];
+    for (let i = 0; i < this.player; i++) {
+      let rng = Math.round(Math.random()*(this.trackLength-2))+1;
+      traps.push(rng);
+    }
+    return traps;
+  }
+
+  print_obstacle(array){
+    array.push('#');
   }
 
   playerPosLoop(){
@@ -41,9 +62,13 @@ class JSRacer {
   }
 
   print_board() {
-    for (var playerLoop = 0; playerLoop < this.players.length ; playerLoop++) { // loop line
+    for (var playerLoop = 0; playerLoop < this.players.length ; playerLoop++) {
       var currPlayer = this.players[playerLoop];
-      console.log(this.print_line(currPlayer, this.playersPos[playerLoop]));
+      if (this.trapsIndex[playerLoop] === this.playersPos[playerLoop]) {
+        // console.log('trap set');
+        this.playersPos[playerLoop] -= 2;
+      }
+      console.log(this.print_line(currPlayer, this.playersPos[playerLoop], playerLoop));
       if(this.playersPos[playerLoop] >= this.trackLength){
         if (!this.hasOwnProperty('winnerPlayer')) {
           this.winnerPlayer = currPlayer;
