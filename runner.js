@@ -11,6 +11,7 @@ function sleep(milliseconds) {
   }
 }
 
-var racer=new JSRacer();
+var myArgv=process.argv
 
+var racer=new JSRacer(myArgv[2],myArgv[3]);
 racer.print_board();

@@ -4,13 +4,16 @@ const Dice = require('./dice');
 
 class JSRacer {
   constructor(players, length, position) {
-    this.runner= players || ['a','b','c'];
+    this.runner= players || 3;
     this.length= length || 20;
     this.position= position || 0;
   }
+
   print_board() {
-    for(var i=0; i<this.runner.length; i++) {
-      this.print_line(this.runner[i],this.position);
+    var token='';
+    for(var i=0; i<this.runner; i++) {
+      token=String.fromCharCode(97+(i%this.runner))
+      this.print_line(token,this.position);
     }
   }
   print_line(player, pos) {
@@ -23,7 +26,7 @@ class JSRacer {
   }
 
   advanced_player(player) {
-
+    
   }
 
   finished() {
