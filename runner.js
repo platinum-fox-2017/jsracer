@@ -15,5 +15,13 @@ function sleep(milliseconds) {
 let totalPlayer = process.argv[2]
 let lengthArena = process.argv[3]
 // console.log(totalPlayer)
-let jsracer = new JSRacer(totalPlayer, lengthArena)
-console.log(jsracer.print_board())
+let jsracer = new JSRacer(Number(totalPlayer), Number(lengthArena))
+// console.log(jsracer.finished())
+while (jsracer.finished() !== true) {
+  console.log(jsracer.print_board())
+  //   jsracer.reset_board()
+}
+
+// for (let i = 0; i < 5; i++) {
+//   console.log(jsracer.print_board())
+// }

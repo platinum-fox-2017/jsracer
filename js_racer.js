@@ -3,9 +3,9 @@
 const Dice = require('./dice');
 
 class JSRacer {
-  constructor(players, length) {
-    this.players = this.createPlayers(players)
-    this.length = length < 15 ? 15 : length
+  constructor(players = 2, length = 15) {
+    this.players = players < 2 ? this.createPlayers(2) : this.createPlayers(players)
+    this.length = length || 15
     // random number from 1 to 6
     this.dice = new Dice()
   }
@@ -20,23 +20,20 @@ class JSRacer {
         position: 0
       }
     }
-    // return [{name: 'a', position: 0},{....}]
     return arrPlayer
   }
 
   print_board() {
-    return this.players.map(player => {
-      return this.print_line(player)
-    }).join('\n')
+    for (let i = 0; i < this.players.length; i++) {
+      console.log(this.print_line(this.players[i]))
+      this.advanced_player(this.players[i])
+    }
+    return ''
   }
 
   print_line(player) {
-    // return player
     let track = ''
-
-    console.log(this.advanced_player(player))
-
-    for (let i = 0; i < this.length; i++) {
+    for (let i = 0; i <= this.length; i++) {
       if (player.position === i) {
         track += `${player.name}|`
       } else {
@@ -47,17 +44,31 @@ class JSRacer {
   }
 
   advanced_player(player) {
-    player.position += this.dice.roll()
-    return player
+    if (player.position >= this.length) {
+      player.position = this.length
+    } else {
+      player.position += this.dice.roll()
+    }
+    // this.finished()
+    // return player
   }
 
-  
+
   finished() {
-
+    for (let i = 0; i < this.players.length; i++) {
+      if (this.players[i].position >= this.length) {
+        console.log(this.print_board())
+        console.log(this.winner(this.players[i].name))
+        return true
+      }
+    }
   }
-  winner() {
 
+  winner(player) {
+    // console.log(this.print_board())
+    return `pemenangnya ` + player
   }
+
   reset_board() {
     console.log("\x1B[2J")
   }
