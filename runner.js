@@ -12,3 +12,18 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+let players = process.argv[2]
+let length = process.argv[3]
+let runingJSRacer = new JSRacer(players, length);
+
+// console.log(runingJSRacer.createPlayer())
+// console.log(runingJSRacer.print_board())
+// console.log(runingJSRacer.advanced_player())
+// console.log(runingJSRacer.print_line())
+
+
+while (runingJSRacer.finished()) {
+  runingJSRacer.reset_board()
+  runingJSRacer.advanced_player();
+  sleep(500)
+}
