@@ -5,8 +5,11 @@ class Dice {
 
   }
   roll() {
-
+    let  possible = "123456";
+    let  text = possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
   }
 }
+
 
 module.exports = Dice;

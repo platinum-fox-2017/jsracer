@@ -12,3 +12,15 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+let argv = process.argv;
+let racing = new JSRacer(argv[2],argv[3]);
+while(racing.finished() == false){
+  racing.print_board();
+  sleep(200);
+  if(racing.finished()){
+    console.log(racing.winner());  
+    break;
+  }
+  racing.reset_board();
+}
+
