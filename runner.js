@@ -23,8 +23,6 @@ if (player < 2 || length < 10) {
     while (!newRace.finished()) {
         newRace.reset_board();
         newRace.advanced_player();
-        newRace.booster_generator();
-        newRace.obstacle_generator();
         console.log(newRace.print_board());
         sleep(800);
     }

@@ -4,22 +4,27 @@ const Dice = require('./dice');
 
 class JSRacer {
   constructor(players, length) {
-    this.players = this.create_players(players)
+    this.players = this.create_players(players, length)
     this.length = length
     this.dice = new Dice(3)
     this.obstacle = '*'
     this.booster = '$'
   }
 
-  create_players(player) {
+  test() {
+    console.log(Math.round(Math.random() * Number(this.length-1)));
+  }
+
+  create_players(player, length) {
     let bank = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
      let box = []
+     // console.log(this.length,'<<<<<<<<<<<<<<<<<<<<');
      for (let i = 0; i < player; i++) {
          let obj = {
              nama: bank[i],
              posisi: 0,
-             obstacle: Math.round(Math.random() * 29),
-             booster: Math.round(Math.random() * 29)
+             obstacle: Math.round(Math.random() * Number(length-1)),
+             booster: Math.round(Math.random() * Number(length-1))
          }
          box.push(obj)
      }
@@ -36,17 +41,16 @@ class JSRacer {
 
   print_line(player, pos) {
     let box = []
-    console.log(player);
     for (let i = 0; i < this.length; i++) {
-        if (i === pos) {
+        if (i === pos && i !== player.obstacle && i !== player.booster) {
             box.push(player.nama)
         } else {
           if (i === player.obstacle) {
             box.push(this.obstacle)
-            this.obstacle_generator()
+            this.obstacle_generator(player.posisi, player.obstacle, player.nama)
           } else if (i === player.booster) {
             box.push(this.booster)
-            this.booster_generator()
+            this.booster_generator(player.posisi, player.booster, player.nama)
           } else {
             box.push(' ')
           }
@@ -62,22 +66,18 @@ class JSRacer {
     return this.print_board()
   }
 
-  obstacle_generator() {
-      for (let i = 0; i < this.players; i++) {
-          if (i === this.players[i].obstacle) {
-              this.players[i].posisi = 0
-              console.log(`Sayang sekali ${this.players[i].nama}, kamu kena jebakan betmen`)
-          }
+  obstacle_generator(pos, obstacle, player) {
+    if(pos === obstacle) {
+        pos = 0
+        console.log(`Sayang sekali ${player}, kamu kena jebakan betmen`)
       }
   }
 
-  booster_generator() {
-      for (let i = 0; i < this.players; i++) {
-          if (i === this.players[i].booster) {
-              this.players[i].posisi += 5
-              console.log(`Hoki ya kamu ${this.players[i].nama}, bisa dapat booster`)
-          }
-      }
+  booster_generator(pos, booster, player) {
+    if(pos === booster) {
+      pos += 5
+      console.log(`Hoki ya kamu ${player}, bisa dapat booster`)
+    }
   }
 
   finished() {
