@@ -11,17 +11,16 @@ class JSRacer {
   }
 
   createPlayers(player) {
+    const total = player < 2 ? 2 : player
     let arrPlayer = []
     let charName = 'abcdefghijklmnopqrtuvwxyz'
-
-    for (let i = 0; i < player; i++) {
+    for (let i = 0; i < total; i++) {
       arrPlayer[i] = {
         name: charName.charAt(i),
         position: 0
       }
     }
     // return [{name: 'a', position: 0},{....}]
-    // console.log(arrPlayer)
     return arrPlayer
   }
 
@@ -34,19 +33,25 @@ class JSRacer {
   print_line(player) {
     // return player
     let track = ''
+
+    console.log(this.advanced_player(player))
+
     for (let i = 0; i < this.length; i++) {
       if (player.position === i) {
-        track += `|${player.name}`
+        track += `${player.name}|`
       } else {
-        track += '| '
+        track += ' |'
       }
     }
     return track
   }
 
   advanced_player(player) {
-
+    player.position += this.dice.roll()
+    return player
   }
+
+  
   finished() {
 
   }
