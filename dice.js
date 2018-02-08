@@ -5,7 +5,7 @@ class Dice {
 
   }
   roll() {
-
+    return Math.round(Math.random()*3);
   }
 }
 
